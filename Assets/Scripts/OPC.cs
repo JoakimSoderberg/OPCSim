@@ -38,8 +38,6 @@ public class OPCClient
 
 public class OPC : MonoBehaviour
 {
-    private bool mRunning;
-    private Thread mThread;
     private TcpListener listener = null;
 
     // OPC broadcast channel.
@@ -91,11 +89,11 @@ public class OPC : MonoBehaviour
         }
         else
         {
-            Debug.Log("Read " + payload_len);
+            //Debug.Log("Read " + payload_len);
 
             if (opclient.command == OPC_SET_PIXELS)
             {
-                //PixelHandler(opclient.channel, (ushort)(payload_len / 3), opclient.payload);
+                PixelHandler(opclient.channel, (ushort)(payload_len / 3), opclient.payload);
             }
         }
 
@@ -108,13 +106,18 @@ public class OPC : MonoBehaviour
         NetworkStream stream = opclient.client.GetStream();
 
         int hdr_len = stream.EndRead(hdr_result);
+        if (hdr_len == 0)
+        {
+            Debug.Log("Disconnected");
+            return;
+        }
         opclient.channel = (byte)opclient.hdr[0];
         opclient.command = (byte)opclient.hdr[1];
         opclient.payload_expected = (((byte)opclient.hdr[2] << 8) | (byte)opclient.hdr[3]);
-        Debug.Log("Packet ch " + opclient.channel + " cmd " + opclient.command + " => " + opclient.payload_expected);
+        //Debug.Log("Packet ch " + opclient.channel + " cmd " + opclient.command + " => " + opclient.payload_expected);
 
         // Listen for next packet.
-        if (opclient.payload_expected < opclient.payload.Length)
+        if (opclient.payload_expected > opclient.payload.Length)
         {
             opclient.payload = new byte[opclient.payload_expected];
         }

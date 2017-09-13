@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114361694224999450}
   m_Layer: 0
   m_Name: LEDPrefab
-  m_TagString: Untagged
+  m_TagString: LEDPrefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
