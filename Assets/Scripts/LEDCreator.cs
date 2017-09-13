@@ -33,10 +33,14 @@ public class LEDCreator : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     public GameObject prefab;
+    private GameObject camera_pivot;
+
+    public static List<LED> all_leds;
 
     // Use this for initialization
     void Start ()
     {
+        camera_pivot = GameObject.Find("CameraPivot");
         LoadLEDLayout();
     }
 
@@ -44,15 +48,50 @@ public class LEDCreator : MonoBehaviour
     {
         var asset = Resources.Load<TextAsset>("layout");
         var led_locations = JsonHelper.getJsonArray<LEDLocation>(asset.text);
-        var scale = new Vector3(100f, 100f, 100f);
+        float scale = 10.0f;
 
         foreach (LEDLocation loc in led_locations)
         {
-            var location = new Vector3(loc.point[0] * -10, loc.point[1] * -10, loc.point[2] * -10);
-            //location.Scale(scale);
+            var location = new Vector3(loc.point[0] * -scale, loc.point[1] * -scale, loc.point[2] * -scale);
             var led = InstantiateLED(location);
-            led.SetColor(Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
+            //led.SetColor(Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
+            led.SetColor(Color.black);
         }
+
+        LEDCreator.all_leds = FindAllLEDs();
+    }
+
+    public Vector3 CenterOfVectors(Vector3[] vectors)
+    {
+        Vector3 sum = Vector3.zero;
+        if (vectors == null || vectors.Length == 0)
+        {
+            return sum;
+        }
+
+        foreach (Vector3 vec in vectors)
+        {
+            sum += vec;
+        }
+        return sum / vectors.Length;
+    }
+
+    List<LED> FindAllLEDs()
+    {
+        var leds = new List<LED>();
+        var led_locations = new List<Vector3>();
+
+        foreach (GameObject led_obj in GameObject.FindGameObjectsWithTag("LEDPrefab"))
+        {
+            led_locations.Add(led_obj.transform.position);
+
+            LED led = led_obj.GetComponent<LED>();
+            leds.Add(led);
+        }
+
+        camera_pivot.transform.position = CenterOfVectors(led_locations.ToArray());
+
+        return leds;
     }
 
     LED InstantiateLED(Vector3 point)

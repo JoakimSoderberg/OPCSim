@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using System;
+using UnityToolbag;
 
 struct Pixel
 {
@@ -132,10 +133,18 @@ public class OPC : MonoBehaviour
 
     void PixelHandler(ushort channel, ushort count, byte[] data)
     {
-        for (ushort i = 0; i < count; i++)
+        Dispatcher.Invoke(() =>
         {
-            Pixel p = new Pixel(data[i], data[i + 1], data[i + 2]);
-            Debug.Log(p.r + " " + p.g + " " + p.b);
-        }
+            for (ushort i = 0; i < count; i++)
+            {
+                //Pixel p = new Pixel(data[i], data[i + 1], data[i + 2]);
+                //Debug.Log(p.r + " " + p.g + " " + p.b);
+
+                if (i >= LEDCreator.all_leds.Count)
+                    break;
+
+                LEDCreator.all_leds[i].SetColor(new Color(data[i] / 255.0f, data[i + 1] / 255.0f, data[i + 2] / 255.0f));
+            }
+        });
     }
 }
