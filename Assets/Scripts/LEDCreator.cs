@@ -36,11 +36,13 @@ public class LEDCreator : MonoBehaviour
     private GameObject camera_pivot;
 
     public static List<LED> all_leds;
+    public GameObject led_location;
 
     // Use this for initialization
     void Start ()
     {
         camera_pivot = GameObject.Find("CameraPivot");
+        led_location = GameObject.Find("LedLocation");
         LoadLEDLayout();
     }
 
@@ -52,10 +54,16 @@ public class LEDCreator : MonoBehaviour
 
         foreach (LEDLocation loc in led_locations)
         {
-            var location = new Vector3(loc.point[0] * -scale, loc.point[1] * -scale, loc.point[2] * -scale);
+            var location = new Vector3(loc.point[0] * scale, loc.point[1] * scale, loc.point[2] * scale);
             var led = InstantiateLED(location);
+            led.transform.SetParent(this.led_location.transform);
             led.SetColor(Color.black);
         }
+
+        // TODO: This is a very hacky way of placing the LEDs :D
+        led_location.transform.Rotate(0, 0, -180);
+        led_location.transform.localScale = new Vector3(16, 11, 10);
+        led_location.transform.position = new Vector3(4.4f, 9.3f, 10f);
 
         LEDCreator.all_leds = FindAllLEDs();
     }
