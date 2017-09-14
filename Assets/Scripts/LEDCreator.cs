@@ -54,7 +54,6 @@ public class LEDCreator : MonoBehaviour
         {
             var location = new Vector3(loc.point[0] * -scale, loc.point[1] * -scale, loc.point[2] * -scale);
             var led = InstantiateLED(location);
-            //led.SetColor(Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
             led.SetColor(Color.black);
         }
 
@@ -105,6 +104,7 @@ public class LEDCreator : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        /*
         if (Input.GetKey(KeyCode.Mouse1))
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -115,5 +115,6 @@ public class LEDCreator : MonoBehaviour
                 led.SetColor(Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
             }
         }
+        */
     }
 }

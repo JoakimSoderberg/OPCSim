@@ -30,10 +30,12 @@ public class OPCClient
     public byte channel;
     public int payload_expected;
     public TcpClient client;
+    public DateTime last_receive;
 
     public OPCClient(TcpClient client)
     {
         this.client = client;
+        this.last_receive = DateTime.Now;
     }
 }
 
@@ -94,7 +96,12 @@ public class OPC : MonoBehaviour
 
             if (opclient.command == OPC_SET_PIXELS)
             {
-                PixelHandler(opclient.channel, (ushort)(payload_len / 3), opclient.payload);
+                // We skip drawing some frames so we don't get overwhelmed, only update every 20ms.
+                if (DateTime.Now.Subtract(opclient.last_receive).Milliseconds >= 20)
+                {
+                    PixelHandler(opclient.channel, (ushort)(payload_len / 3), opclient.payload);
+                    opclient.last_receive = DateTime.Now;
+                }
             }
         }
 
@@ -133,17 +140,22 @@ public class OPC : MonoBehaviour
 
     void PixelHandler(ushort channel, ushort count, byte[] data)
     {
+        //Debug.Log("Channel => " + channel + " count => " + count);
+
         Dispatcher.Invoke(() =>
         {
+            int led_addr = 0;
             for (ushort i = 0; i < count; i++)
             {
-                //Pixel p = new Pixel(data[i], data[i + 1], data[i + 2]);
-                //Debug.Log(p.r + " " + p.g + " " + p.b);
-
                 if (i >= LEDCreator.all_leds.Count)
                     break;
 
-                LEDCreator.all_leds[i].SetColor(new Color(data[i] / 255.0f, data[i + 1] / 255.0f, data[i + 2] / 255.0f));
+                float r = data[led_addr] / 255.0f;
+                float g = data[led_addr + 1] / 255.0f;
+                float b = data[led_addr + 2] / 255.0f;
+                led_addr += 3;
+
+                LEDCreator.all_leds[i].SetColor(new Color(r, g, b));
             }
         });
     }

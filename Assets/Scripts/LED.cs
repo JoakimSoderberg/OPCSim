@@ -7,10 +7,13 @@ public class LED : MonoBehaviour
 
     public void SetColor(Color c)
     {
-        this.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", c);
-        this.gameObject.GetComponent<Renderer>().material.SetColor("_Color", c);
-        this.gameObject.GetComponent<Renderer>().material.SetColor("_SpecColor", c);
-        this.gameObject.GetComponent<Renderer>().material.SetColor("_Albedo", c);
+        var material = this.gameObject.GetComponent<Renderer>().material;
+        //Debug.Log(c);
+        material.SetColor("_EmissionColor", c);
+        material.SetColor("_Color", c);
+        material.SetColor("_SpecColor", c);
+        material.SetColor("_Albedo", c);
+        material.SetColor("_MainColor", c);
     }
 
 	// Use this for initialization
