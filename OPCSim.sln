@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPCSim", "OPCSim.csproj", "{7A01D438-5CC5-C829-A4A2-CE98A4B34ACE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPCSim.Plugins", "OPCSim.Plugins.csproj", "{164C5359-53BC-0D43-8F54-86E11D6A675D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPCSim.Editor.Plugins", "OPCSim.Editor.Plugins.csproj", "{5C06E0FF-8635-C04A-85E3-59045C5BA9D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A01D438-5CC5-C829-A4A2-CE98A4B34ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A01D438-5CC5-C829-A4A2-CE98A4B34ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A01D438-5CC5-C829-A4A2-CE98A4B34ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A01D438-5CC5-C829-A4A2-CE98A4B34ACE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164C5359-53BC-0D43-8F54-86E11D6A675D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164C5359-53BC-0D43-8F54-86E11D6A675D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164C5359-53BC-0D43-8F54-86E11D6A675D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164C5359-53BC-0D43-8F54-86E11D6A675D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C06E0FF-8635-C04A-85E3-59045C5BA9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C06E0FF-8635-C04A-85E3-59045C5BA9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C06E0FF-8635-C04A-85E3-59045C5BA9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C06E0FF-8635-C04A-85E3-59045C5BA9D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
