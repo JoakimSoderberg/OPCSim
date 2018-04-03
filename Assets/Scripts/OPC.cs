@@ -59,7 +59,7 @@ public class OPC : MonoBehaviour
 
     void Start()
     {
-        listener = new TcpListener(IPAddress.Parse("127.0.0.1"), 7890);
+        listener = new TcpListener(IPAddress.Any, 7890);
         listener.Start();
         listener.BeginAcceptTcpClient(OPCHandler, null);
         Debug.Log("OPC: Server started listening for clients...");
