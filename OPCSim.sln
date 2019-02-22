@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPCSim", "OPCSim.csproj", "{7A01D438-5CC5-C829-A4A2-CE98A4B34ACE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPCSim.Plugins", "OPCSim.Plugins.csproj", "{164C5359-53BC-0D43-8F54-86E11D6A675D}"
